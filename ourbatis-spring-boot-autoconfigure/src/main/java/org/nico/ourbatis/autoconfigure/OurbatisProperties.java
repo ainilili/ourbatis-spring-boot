@@ -22,13 +22,6 @@ public class OurbatisProperties {
 		return properties.getProperty("templateLocations");
 	}
 	
-	public String getInterfaceLocations() {
-		if(! properties.containsKey("interfaceLocations")) {
-			throw new RuntimeException("No such property interfaceLocations defined !");
-		}
-		return properties.getProperty("interfaceLocations");
-	}
-	
 	public String getDomainLocations() {
 		if(! properties.containsKey("domainLocations")) {
 			throw new RuntimeException("No such property domainLocations defined !");
@@ -54,10 +47,6 @@ public class OurbatisProperties {
 	
 	public void setTemplateLocations(String templateLocations) {
 		properties.setProperty("templateLocations", templateLocations);
-	}
-	
-	public void setInterfaceLocations(String interfaceLocations) {
-		properties.setProperty("interfaceLocations", interfaceLocations);
 	}
 	
 	public void setDomainLocations(String domainLocations) {

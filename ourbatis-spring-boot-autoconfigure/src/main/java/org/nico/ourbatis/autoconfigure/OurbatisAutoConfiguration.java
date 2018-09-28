@@ -1,7 +1,10 @@
 package org.nico.ourbatis.autoconfigure;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
+import org.apache.ibatis.binding.MapperRegistry;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.nico.noson.util.string.StringUtils;
 import org.nico.ourbatis.Ourbatis;
@@ -11,8 +14,8 @@ import org.nico.ourbatis.loader.OurbatisLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.CollectionUtils;
 
 @Configuration
 @ConditionalOnBean({SqlSessionFactory.class})
@@ -20,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 public class OurbatisAutoConfiguration {
 
 	@Autowired
-	private SqlSessionFactory sqlSessionFactory;
+	private List<SqlSessionFactory> sqlSessionFactories;
 	
 	@Autowired(required = false)
 	private OurbatisConfigure configure;
@@ -54,12 +57,22 @@ public class OurbatisAutoConfiguration {
 				Ourbatis.MAPPER_NAME_WRAPPERS,
 				Ourbatis.JAVA_TYPE_WRAPPERS);
 		
-		OurbatisLoader loader = new OurbatisLoader(
-				sqlSessionFactory,
-				properties.getTemplateLocations(),
-				properties.getInterfaceLocations());
+		if(! CollectionUtils.isEmpty(sqlSessionFactories)) {
+			sqlSessionFactories.forEach(sqlSessionFactory -> {
+				MapperRegistry mapperRegistry = sqlSessionFactory.getConfiguration().getMapperRegistry();
+				if(! CollectionUtils.isEmpty(mapperRegistry.getMappers())) {
+					String mapperLocations = mapperRegistry.getMappers().iterator().next().getPackage().getName();
+					OurbatisLoader loader = new OurbatisLoader(
+							sqlSessionFactory,
+							properties.getTemplateLocations(),
+							mapperLocations);
+					
+					loader.add(properties.getDomainLocations());
+					loader.build();
+				}
+			});
+		}
 		
-		loader.add(properties.getDomainLocations());
-		loader.build();
+		
 	}
 }
