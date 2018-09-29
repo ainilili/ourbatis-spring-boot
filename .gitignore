@@ -42,3 +42,12 @@ target
 .DS_Store
 .classpath
 .settings
+/target
+/.project
+/.settings
+/ourbatis-spring-boot-autoconfigure/.settings
+/ourbatis-spring-boot-autoconfigure/.classpath
+/ourbatis-spring-boot-autoconfigure/.project
+/ourbatis-spring-boot-starter/.settings
+/ourbatis-spring-boot-starter/.classpath
+/ourbatis-spring-boot-starter/.project
