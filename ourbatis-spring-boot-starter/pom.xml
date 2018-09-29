@@ -8,7 +8,7 @@
    <parent>
         <groupId>com.smallnico</groupId>
 		<artifactId>ourbatis-spring-boot</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
     </parent>
     
      <build>
@@ -55,6 +55,14 @@
         <dependency>
             <groupId>com.smallnico</groupId>
             <artifactId>ourbatis-spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+       	 	<groupId>com.smallnico</groupId>
+            <artifactId>ourbatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 </project>
