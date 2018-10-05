@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smallnico</groupId>
 	<artifactId>ourbatis-spring-boot</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>Ourbatis-Spring-Boot</name>
 	<url>https://github.com/ainilili/ourbatis-spring-boot</url>
 	<packaging>pom</packaging>
@@ -36,8 +36,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.compiler.argument />
 		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
-		<ourbatis.version>1.0.2</ourbatis.version>
-		<ourbatis-spring-boot.version>1.0.2</ourbatis-spring-boot.version>
+		<ourbatis.version>1.0.3</ourbatis.version>
+		<ourbatis-spring-boot.version>1.0.3</ourbatis-spring-boot.version>
 		<java.test.compiler.argument>${java.compiler.argument}</java.test.compiler.argument>
 	</properties>
 	
