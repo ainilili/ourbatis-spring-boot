@@ -41,6 +41,9 @@ public class OurbatisAutoConfiguration {
 		if(configure == null) {
 			configure = new OurbatisDefaultConfigue();
 		}
+		if(StringUtils.isNotBlank(properties.getTemplateLocations())) {
+			Ourbatis.templateLocation = properties.getTemplateLocations();
+		}
 		if(StringUtils.isNotBlank(properties.getPrefix())) {
 			Ourbatis.prefix = properties.getPrefix();
 		}
@@ -64,7 +67,7 @@ public class OurbatisAutoConfiguration {
 					String mapperLocations = mapperRegistry.getMappers().iterator().next().getPackage().getName();
 					OurbatisLoader loader = new OurbatisLoader(
 							sqlSessionFactory,
-							properties.getTemplateLocations(),
+							Ourbatis.templateLocation,
 							mapperLocations);
 					
 					loader.add(properties.getDomainLocations());

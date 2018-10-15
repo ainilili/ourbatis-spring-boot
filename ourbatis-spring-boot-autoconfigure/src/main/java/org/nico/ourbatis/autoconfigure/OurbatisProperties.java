@@ -16,9 +16,6 @@ public class OurbatisProperties {
 	}
 	
 	public String getTemplateLocations() {
-		if(! properties.containsKey("templateLocations")) {
-			throw new RuntimeException("No such property templateLocations defined !");
-		}
 		return properties.getProperty("templateLocations");
 	}
 	
