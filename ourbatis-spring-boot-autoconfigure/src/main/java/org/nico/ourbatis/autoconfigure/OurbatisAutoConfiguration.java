@@ -11,6 +11,8 @@ import org.nico.ourbatis.Ourbatis;
 import org.nico.ourbatis.configure.OurbatisConfigure;
 import org.nico.ourbatis.configure.OurbatisDefaultConfigue;
 import org.nico.ourbatis.loader.OurbatisLoader;
+import org.nico.ourbatis.utils.AssertUtils;
+import org.nico.ourbatis.utils.ClassUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -70,7 +72,26 @@ public class OurbatisAutoConfiguration {
 							Ourbatis.templateLocation,
 							mapperLocations);
 					
-					loader.add(properties.getDomainLocations());
+					String[] domainLocationArray = properties.getDomainLocations().split(";");
+					if(domainLocationArray != null) {
+						for(String domainLocation: domainLocationArray) {
+							loader.add(domainLocation);
+						}
+					}
+					
+					String domainClassArrayStr = properties.getDomainClasses();
+					if(StringUtils.isNotBlank(domainClassArrayStr)) {
+						String[] domainClassArray = domainClassArrayStr.split(";");
+						for(String domainClassUri: domainClassArray) {
+							try {
+								Class<?> domainClass = Class.forName(domainClassUri);
+								loader.add(domainClass);
+							} catch (ClassNotFoundException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					
 					loader.build();
 				}
 			});

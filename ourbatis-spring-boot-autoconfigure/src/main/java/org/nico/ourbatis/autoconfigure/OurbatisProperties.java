@@ -26,6 +26,10 @@ public class OurbatisProperties {
 		return properties.getProperty("domainLocations");
 	}
 	
+	public String getDomainClasses() {
+		return properties.getProperty("domainClasses");
+	}
+	
 	public String getPrefix() {
 		return properties.getProperty("prefix");
 	}
@@ -48,6 +52,10 @@ public class OurbatisProperties {
 	
 	public void setDomainLocations(String domainLocations) {
 		properties.setProperty("domainLocations", domainLocations);
+	}
+	
+	public void setDomainClasses(String domainClasses) {
+		properties.setProperty("domainClasses", domainClasses);
 	}
 	
 	public void setPrefix(String prefix) {
