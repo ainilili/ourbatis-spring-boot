@@ -20,9 +20,6 @@ public class OurbatisProperties {
 	}
 	
 	public String getDomainLocations() {
-		if(! properties.containsKey("domainLocations")) {
-			throw new RuntimeException("No such property domainLocations defined !");
-		}
 		return properties.getProperty("domainLocations");
 	}
 	

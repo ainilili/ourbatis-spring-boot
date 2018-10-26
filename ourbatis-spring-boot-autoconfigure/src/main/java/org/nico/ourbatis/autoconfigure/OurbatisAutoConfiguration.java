@@ -72,8 +72,9 @@ public class OurbatisAutoConfiguration {
 							Ourbatis.templateLocation,
 							mapperLocations);
 					
-					String[] domainLocationArray = properties.getDomainLocations().split(";");
-					if(domainLocationArray != null) {
+					String domainLocationsStr = properties.getDomainLocations();
+					if(StringUtils.isNotBlank(domainLocationsStr)) {
+						String[] domainLocationArray = domainLocationsStr.split(";");
 						for(String domainLocation: domainLocationArray) {
 							loader.add(domainLocation);
 						}
