@@ -6,18 +6,16 @@ import javax.annotation.PostConstruct;
 
 import org.apache.ibatis.binding.MapperRegistry;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.nico.noson.util.string.StringUtils;
 import org.nico.ourbatis.Ourbatis;
 import org.nico.ourbatis.configure.OurbatisConfigure;
 import org.nico.ourbatis.configure.OurbatisDefaultConfigue;
 import org.nico.ourbatis.loader.OurbatisLoader;
-import org.nico.ourbatis.utils.AssertUtils;
-import org.nico.ourbatis.utils.ClassUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 @Configuration
 @ConditionalOnBean({SqlSessionFactory.class})
@@ -35,7 +33,7 @@ public class OurbatisAutoConfiguration {
 	
 	@PostConstruct
 	public void ourbatisLoader() {
-		if(StringUtils.isNotBlank(properties.getEnable())) {
+		if(! StringUtils.isEmpty(properties.getEnable())) {
 			if(properties.getEnable().equalsIgnoreCase("false")) {
 				return;
 			}
@@ -43,16 +41,16 @@ public class OurbatisAutoConfiguration {
 		if(configure == null) {
 			configure = new OurbatisDefaultConfigue();
 		}
-		if(StringUtils.isNotBlank(properties.getTemplateLocations())) {
+		if(! StringUtils.isEmpty(properties.getTemplateLocations())) {
 			Ourbatis.templateLocation = properties.getTemplateLocations();
 		}
-		if(StringUtils.isNotBlank(properties.getPrefix())) {
+		if(! StringUtils.isEmpty(properties.getPrefix())) {
 			Ourbatis.prefix = properties.getPrefix();
 		}
-		if(StringUtils.isNotBlank(properties.getSuffix())) {
+		if(! StringUtils.isEmpty(properties.getSuffix())) {
 			Ourbatis.suffix = properties.getSuffix();
 		}
-		if(StringUtils.isNotBlank(properties.getPrint())) {
+		if(! StringUtils.isEmpty(properties.getPrint())) {
 			Ourbatis.print = properties.getPrint();
 		}
 		configure.configAdapter(Ourbatis.ASSIST_ADAPTERS);
@@ -73,7 +71,7 @@ public class OurbatisAutoConfiguration {
 							mapperLocations);
 					
 					String domainLocationsStr = properties.getDomainLocations();
-					if(StringUtils.isNotBlank(domainLocationsStr)) {
+					if(! StringUtils.isEmpty(domainLocationsStr)) {
 						String[] domainLocationArray = domainLocationsStr.split(";");
 						for(String domainLocation: domainLocationArray) {
 							loader.add(domainLocation);
@@ -81,7 +79,7 @@ public class OurbatisAutoConfiguration {
 					}
 					
 					String domainClassArrayStr = properties.getDomainClasses();
-					if(StringUtils.isNotBlank(domainClassArrayStr)) {
+					if(! StringUtils.isEmpty(domainClassArrayStr)) {
 						String[] domainClassArray = domainClassArrayStr.split(";");
 						for(String domainClassUri: domainClassArray) {
 							try {
@@ -97,7 +95,5 @@ public class OurbatisAutoConfiguration {
 				}
 			});
 		}
-		
-		
 	}
 }
